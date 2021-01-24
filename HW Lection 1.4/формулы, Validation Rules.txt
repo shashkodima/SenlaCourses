@@ -1,0 +1,4 @@
+1. ( TODAY() -  Birthdate__c -  MOD((TODAY() -  Birthdate__c), 365) )/365
+2. Roll-Up Summary (скриншот прилагается)
+3. Tourist__r.Age__c  <  Trip__r.Minimum_Age__c 
+4. TODAY()   >   Trip__r.Start_Date__c
