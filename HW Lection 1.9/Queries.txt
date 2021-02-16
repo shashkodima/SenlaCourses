@@ -1,0 +1,18 @@
+1. SELECT Name, Start_Date__c FROM Trip__c WHERE Start_Date__c > 2019-12-31 AND Start_Date__c < 2021-01-01
+
+2. SELECT Name, Age__c FROM Tourist__c WHERE Name LIKE '%John%'
+
+3. SELECT Name, Age__c FROM Tourist__c WHERE Age__c = 20 OR Age__c = 22 OR Age__c = 24
+
+4. SELECT Name, Start_Date__c, (SELECT Tourist__r.Age__c, Tourist__r.Name FROM Flights__r) FROM Trip__c
+
+5. SELECT Name, Age__c, (SELECT Trip__r.Name, Trip__r.Start_Date__c FROM Flights__r) FROM Tourist__c
+
+6. SELECT Name, Age__c FROM Tourist__c WHERE Id NOT IN(SELECT Tourist__c FROM Flight__c)
+
+7. SELECT Name, Age__c FROM Tourist__c WHERE Id IN(SELECT Tourist__c FROM Flight__c WHERE (Trip__r.Start_Date__c < 2021-01-01 AND Trip__r.Start_Date__c > 2019-12-31))
+
+8. SELECT Name, Start_Date__c 
+      FROM Trip__c 
+         WHERE (Start_Date__c > 2019-12-31 AND Start_Date__c < 2021-01-01) 
+		 AND (Id IN(SELECT Trip__c FROM Flight__c WHERE Tourist__r.Age__c >=20 AND Tourist__r.Age__c <= 30 AND Tourist__r.Name LIKE 'B%'))
