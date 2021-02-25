@@ -9,6 +9,6 @@ For (currentNumber = 1; currentNumber <= N; currentNumber++) {
                     kolDel++;
     }
     if (kolDel <= 2){
-        System.debug(currentNumber);
+        System.debug(currentNumber + ' - prime number');
     }      
 }

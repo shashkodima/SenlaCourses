@@ -3,7 +3,7 @@ Integer currenNumber = 0;
 Integer prevNumber = 0;
 
 While (currenNumber <= N) {
-    System.debug(currenNumber);
+    System.debug(currenNumber + ' - Fibonacci');
     If (currenNumber!=0){
         Integer temp = currenNumber;
         currenNumber = currenNumber + prevNumber;
