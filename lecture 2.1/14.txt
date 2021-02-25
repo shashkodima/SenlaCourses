@@ -1,0 +1,14 @@
+Integer N = 105;
+Integer currentNumber;
+Integer kolDel;
+
+For (currentNumber = 1; currentNumber <= N; currentNumber++) {
+    kolDel = 0;
+    For (integer i = 1; i <= currentNumber; i++) {
+        if (math.mod(currentNumber, i) == 0)
+                    kolDel++;
+    }
+    if (kolDel <= 2){
+        System.debug(currentNumber);
+    }      
+}

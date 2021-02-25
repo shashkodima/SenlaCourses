@@ -1,0 +1,8 @@
+Integer curNumber = 1;
+Integer MylastNumber = 20;
+Integer summ = 0;
+While (curNumber<=MylastNumber) {
+    summ = summ + curNumber;
+    curNumber ++;
+}
+System.debug('sum of numbers = '+summ);

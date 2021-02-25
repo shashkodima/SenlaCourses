@@ -1,0 +1,22 @@
+Integer [] arr = new Integer [10];
+arr[0] = 5;
+arr[1] = 6;
+arr[2] = 10;
+arr[3] = 1;
+arr[4] = 8;
+arr[5] = 13;
+arr[6] = 25;
+arr[7] = 67;
+arr[8] = 4;
+arr[9] = 15;
+
+List <Integer> neChetnue = new List <Integer>{};
+List <Integer> Chetnue = new List <Integer>{};
+
+For (Integer i = 0; i < arr.size(); i++) {
+    if (math.mod (arr[i],2) != 0) 
+    {neChetnue.add (arr[i]);} 
+    else {Chetnue.add (arr[i]);}
+} 
+System.debug('Ne chetnue chisla ' + neChetnue);
+System.debug('Chetnue chisla ' + Chetnue);

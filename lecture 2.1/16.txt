@@ -1,0 +1,11 @@
+Long CheckNumber = 511525115;
+String str = String.valueOf(CheckNumber);
+List<String> elements = str.split('');
+List<String> reverse = new List<String>();
+
+For (Integer i = elements.size()-1; i >= 0; i--) {
+    reverse.add(elements[i]);    
+}
+
+Boolean palindrome = elements == reverse;
+System.debug('Palindrome = ' + palindrome);

@@ -1,0 +1,14 @@
+Integer N = 58;
+Integer currenNumber = 0;
+Integer prevNumber = 0;
+
+While (currenNumber <= N) {
+    System.debug(currenNumber);
+    If (currenNumber!=0){
+        Integer temp = currenNumber;
+        currenNumber = currenNumber + prevNumber;
+        prevNumber = temp;
+    } else {
+        currenNumber = currenNumber + 1;
+    }
+}

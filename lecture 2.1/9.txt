@@ -1,0 +1,4 @@
+String inputString = 'string for the ninth task';
+String [] arr = inputString.split (' ');
+Integer i = arr.size() - 1;
+System.debug('First word - ' + arr[0] + ' ; ' + 'Last word - ' + arr [i]);

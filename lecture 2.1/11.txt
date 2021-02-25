@@ -1,0 +1,26 @@
+Integer [] arr = new Integer [10];
+arr [0] = 1;
+arr [1] = 20;
+arr [2] = 12;    
+arr [3] = 21;  
+arr [4] = 45;
+arr [5] = 38;
+arr [6] = 6;
+arr [7] = 60;
+arr [8] = 23;
+arr [9] = 99;
+    
+Integer n = 0;
+Integer [] NewArr = new Integer [n];
+
+For (Integer i = 0; i < arr.size(); i++) {
+    If (math.mod(arr[i], 2) ==0 ) {
+        NewArr.add(i);
+        n++;
+    }
+}
+
+NewArr.sort();
+For (n = 0; n < NewArr.size(); n++) {
+    System.debug (NewArr[n]);
+}
