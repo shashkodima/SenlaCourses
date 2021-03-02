@@ -1,16 +1,16 @@
 String englishString = 'Hello my name is Dima';
-List<String> listWord= englishString.split(' ');
-Map<Integer, List<String>> myMap= new Map<Integer, List<String>>();
+List<String>listWord= englishString.split(' ');
+Map<Integer, List<String>>myMap= new Map<Integer, List<String>>();
 
 for(Integer i = 0; i < listWord.size(); i++) {
     String curWord = listWord[i];
-    Integer Key = curWord.length();
-    If (myMap.containsKey(Key)){
+    Integer key = curWord.length();
+    if (myMap.containsKey(key)){
         myMap.get(key).add(curWord);
     } else {
-        List<String> ValueWords = new List <String>();
+        List<String>ValueWords = new List<String>();
         ValueWords.add(curWord);
-        myMap.put(Key, ValueWords);
+        myMap.put(key, ValueWords);
     }
 }
 System.debug(myMap);

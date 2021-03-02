@@ -1,8 +1,8 @@
-String stingFor12 = 'My string for map ex 12';
-List<String> listWord = stingFor12.split(' ');
-Map<Integer, Integer> lengthMap= new Map <Integer, Integer>();
+String stringFor12 = 'My string for map ex 12';
+List<String>listWord = stringFor12.split(' ');
+Map<Integer, Integer>lengthMap= new Map<Integer, Integer>();
 
-For (String word: listWord) {
+for (String word: listWord) {
    Integer length = lengthMap.get(word.length());
     If (length == null) {
         length = 0;

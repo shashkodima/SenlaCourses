@@ -11,16 +11,15 @@ arr [8] = 23;
 arr [9] = 99;
     
 Integer n = 0;
-Integer [] NewArr = new Integer [n];
+Integer [] newArr = new Integer [n];
 
-For (Integer i = 0; i < arr.size(); i++) {
-    If (math.mod(arr[i], 2) ==0 ) {
-        NewArr.add(i);
-        n++;
+for (Integer i = 0; i < arr.size(); i++) {
+    if (math.mod(arr[i], 2) ==0 ) {
+        newArr.add(i);
     }
 }
 
-NewArr.sort();
-For (n = 0; n < NewArr.size(); n++) {
-    System.debug (NewArr[n]);
+newArr.sort();
+for (n = 0; n < newArr.size(); n++) {
+    System.debug (newArr[n]);
 }

@@ -1,8 +1,8 @@
 String newString = 'my new string for the task';
 String [] newArr = newString.split(' ');
-For (Integer index = 0; index<newArr.size(); index++) {
-    If (math.mod(index,2)==0) {
+
+for (Integer index = 0; index < newArr.size(); index++) {
+    if (math.mod(index,2)==0) {
         System.debug(newArr[index]);
     }
 } 
-    

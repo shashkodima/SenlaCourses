@@ -2,8 +2,8 @@ Integer number3 = 3;
 Integer multiplier = 0;
 Integer result;
 
-while (multiplier<11) {
-    result = number3*multiplier;
-    System.debug('3*'+multiplier+'='+result);
+while (multiplier < 11) {
+    result = number3 * multiplier;
+    System.debug('3*' + multiplier + '=' + result);
     multiplier++;
 }

@@ -1,8 +1,9 @@
 Integer curNumber = 1;
-Integer MylastNumber = 20;
-Integer summ = 0;
-While (curNumber<=MylastNumber) {
-    summ = summ + curNumber;
+Integer mylastNumber = 20;
+Integer sum = 0;
+
+while (curNumber <= mylastNumber) {
+    sum = sum + curNumber;
     curNumber ++;
 }
-System.debug('sum of numbers = '+summ);
+System.debug('sum of numbers = '+sum);

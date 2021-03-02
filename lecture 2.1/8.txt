@@ -10,13 +10,15 @@ arr[7] = 67;
 arr[8] = 4;
 arr[9] = 15;
 
-List <Integer> neChetnue = new List <Integer>{};
-List <Integer> Chetnue = new List <Integer>{};
+List<Integer>oddNums = new List<Integer>{};
+List<Integer>evenNums = new List<Integer>{};
 
-For (Integer i = 0; i < arr.size(); i++) {
-    if (math.mod (arr[i],2) != 0) 
-    {neChetnue.add (arr[i]);} 
-    else {Chetnue.add (arr[i]);}
+for (Integer i = 0; i < arr.size(); i++) {
+    if (math.mod (arr[i],2) != 0) {
+        oddNums.add (arr[i]);
+    } else {
+        evenNums.add (arr[i]);
+    }
 } 
-System.debug('Ne chetnue chisla ' + neChetnue);
-System.debug('Chetnue chisla ' + Chetnue);
+System.debug('Odd numbers are ' + oddNums);
+System.debug('Even numbers are ' + evenNums);
