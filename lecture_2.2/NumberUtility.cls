@@ -6,6 +6,7 @@ public class NumberUtility {
 		
         for (Integer currentNumber = 1; currentNumber <= N; currentNumber++) {
 			numDivisors = 0;
+            
 			for (Integer i = 1; i <= currentNumber; i++) {
                 if (math.mod(currentNumber, i) == 0) {
                     numDivisors++;
