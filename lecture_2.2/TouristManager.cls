@@ -35,26 +35,12 @@ public class TouristManager {
         return foundTourists;
     }
     
-     public static Map<Tourist__c, List<Trip__c>> getTouristTrip() {
-         Map<Tourist__c, List<Trip__c>> touristTrip = new Map<Tourist__c, List<Trip__c>>();   
-         List <Tourist__c> listTourist = [
-            SELECT Name, Age__c, ID
-            FROM Tourist__c
-        ];
-         
-        for (Integer i = 0; i < listTourist.size(); i++) {
-            String TouristId = listTourist[i].id;
-            List<Trip__c> newTripList= [
-                SELECT Name, Start_Date__c 
-                FROM Trip__c 
-                WHERE Id IN(SELECT Trip__c 
-                            FROM Flight__c 
-                            WHERE Tourist__r.Id = :TouristId)
-            ];
-            touristTrip.put(listTourist[i], newTripList);
-        }
-        System.debug(touristTrip);
-        return touristTrip; 
+    public static List<Tourist__c> getTouristTrip() {
+         List<Tourist__c> touristWithTrip = [
+             SELECT Name, Age__c, (SELECT Trip__r.Name, Trip__r.Start_Date__c FROM Flights__r) 
+             FROM Tourist__c
+         ];
+        return touristWithTrip;
     }
     
     public static List<Tourist__c> getNoFlight() {
