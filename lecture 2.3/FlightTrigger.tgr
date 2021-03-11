@@ -1,0 +1,8 @@
+trigger FlightTrigger on Flight__c(after insert) {
+
+	switch on trigger.operationType {
+		when AFTER_INSERT {
+			FlightTriggerHandler.onAfterInsert(Trigger.newMap);
+		}
+	}
+}

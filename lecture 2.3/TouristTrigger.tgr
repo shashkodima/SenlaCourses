@@ -1,0 +1,14 @@
+trigger TouristTrigger on Tourist__c(before insert, after update) {
+	if (!TouristTriggerHandler.repeated) {
+		TouristTriggerHandler.repeated = true;
+
+		switch on Trigger.operationType {
+			when BEFORE_INSERT {
+				TouristService.markDuplicates(Trigger.new);
+			}
+			when AFTER_UPDATE {
+				TouristTriggerHandler.onAfterUpdate(Trigger.newMap);
+			}
+		}
+	}
+}
