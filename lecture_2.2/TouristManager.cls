@@ -1,11 +1,12 @@
 public class TouristManager {
-
+    
     public static List<Tourist__c> getByName(String findName) {
         if (String.isBlank(findName)) {
             return new List<Tourist__c>();
         }
         List<Tourist__c> foundTourists = [
-            SELECT Name, Age__c
+            SELECT Name, 
+            Age__c
             FROM Tourist__c
             WHERE Name LIKE :findName
         ];
@@ -13,9 +14,13 @@ public class TouristManager {
         return foundTourists;   
     }
     
-    public static List<Tourist__c> getByAge(List<Integer> findAge) {
-        List<Tourist__c> foundTourists= [
-            SELECT Name, Age__c
+    public static List<Tourist__c> getByAge(Set<Integer> findAge) {
+        if(findAge.isEmpty() || findAge == null) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> foundTourists = [
+            SELECT Name,
+            Age__c
             FROM Tourist__c
             WHERE Age__c = :findAge
         ];
@@ -24,8 +29,12 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getByStartYear(Integer year) {
+        if(year == null) {
+            return new List<Tourist__c>();
+        }
         List<Tourist__c> foundTourists = [
-            SELECT Name, Age__c
+            SELECT Name,
+            Age__c
             FROM Tourist__c
             WHERE Id IN(SELECT Tourist__c 
                         FROM Flight__c 
@@ -36,21 +45,53 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getTouristTrip() {
-         List<Tourist__c> touristWithTrip = [
-             SELECT Name, Age__c, (SELECT Trip__r.Name, Trip__r.Start_Date__c FROM Flights__r) 
-             FROM Tourist__c
-         ];
+        List<Tourist__c> touristWithTrip = [
+            SELECT Name, 
+            Age__c, 
+            (SELECT Trip__r.Name, Trip__r.Start_Date__c FROM Flights__r) 
+            FROM Tourist__c
+        ];
         return touristWithTrip;
     }
     
     public static List<Tourist__c> getNoFlight() {
         List<Tourist__c> touristsNoFly = [
-            SELECT Name, Age__c 
+            SELECT Name, 
+            Age__c 
             FROM Tourist__c 
             WHERE Id NOT IN(SELECT Tourist__c 
                             FROM Flight__c)
         ];
         System.debug(touristsNoFly);
         return touristsNoFly;
+    }
+    
+    public static List<Tourist__c> getDuplicate(List<String> names, List<String> mails) {
+        if((names.isEmpty() && mails.isEmpty()) || (names == null && mails == null)) {
+            return new List<Tourist__c>();
+        }
+        List < Tourist__c > duplTourists = [
+            SELECT Id, 
+            Name, 
+            Tourist_EMail__c
+            FROM Tourist__c
+            WHERE Tourist_EMail__c IN: mails
+            AND Name IN: names
+        ];
+        return duplTourists;
+    }
+    
+    public static List<Tourist__c> getByFreeDateMinAge(Date freeDate, Double minAge) {
+        List<Tourist__c> suitableTourists = [
+            SELECT Id, 
+            Name
+            FROM Tourist__c 
+            WHERE (Age__c >= :minAge 
+                   AND ID NOT IN (
+                       SELECT Tourist__c 
+                       FROM Flight__c 
+                       WHERE Trip__r.Start_Date__c = :freeDate))
+        ];
+        return suitableTourists;
     }
 }
