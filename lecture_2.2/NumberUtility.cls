@@ -20,13 +20,13 @@ public class NumberUtility {
         return primeNumber;
     }
     
-    Public static List<Integer> getFibonacci(Integer n) {
+    public static List<Integer> getFibonacci(Integer n) {
         Integer currenNumber = 0;
         Integer prevNumber = 0;
-        List<Integer> Fibonacci = new List<Integer> ();
+        List<Integer> fibonacci = new List<Integer> ();
         
         while (currenNumber <= n) {
-            Fibonacci.add(currenNumber);
+            fibonacci.add(currenNumber);
             if (currenNumber == 0) {
                 currenNumber = currenNumber + 1;
             } else {
@@ -35,8 +35,8 @@ public class NumberUtility {
                 prevNumber = temp;
             }
         }
-        System.debug(Fibonacci);
-        return Fibonacci;
+        System.debug(fibonacci);
+        return fibonacci;
     }
     
     public static Boolean isPalindrome(Long checkNumber) {
