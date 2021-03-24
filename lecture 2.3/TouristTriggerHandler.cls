@@ -3,7 +3,8 @@ public class TouristTriggerHandler {
 
 	public static void onAfterUpdate(Map<Id, Tourist__c> newTourists) {
 		List<Tourist__c> tourWithFli = [
-		    SELECT Active__c, (SELECT Id FROM Flights__r)
+		    SELECT Active__c, 
+            (SELECT Id FROM Flights__r)
 		    FROM Tourist__c
 		    WHERE Id IN: newTourists.keyset()
         ];
