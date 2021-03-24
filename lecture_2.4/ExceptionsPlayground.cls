@@ -26,6 +26,6 @@ public class ExceptionsPlayground {
         } catch(Exception e) {
             System.debug('exceptions caught on line ' + e.getLineNumber());
         }
-        System.debug('Method completed successfully');
+        System.debug('Method completed successfully!');
     }
 }
