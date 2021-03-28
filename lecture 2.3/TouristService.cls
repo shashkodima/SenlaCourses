@@ -1,6 +1,6 @@
 public class TouristService {
 
-	public static void markDuplicates(List < Tourist__c > newTourists) {
+	public static void markDuplicates(List <Tourist__c> newTourists) {
 		List<String> names = new List<String>();
 		List<String> mails = new List<String>();
 
@@ -17,6 +17,5 @@ public class TouristService {
 				}
 			}
 		}
-        insert newTourists;
 	}
 }
