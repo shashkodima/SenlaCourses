@@ -1,0 +1,12 @@
+trigger BatchErrorEventTrigger on BatchApexErrorEvent(after insert) {
+    List<Error_log__c> newErrors = new List<Error_log__c>();
+    Error_log__c newError;
+    
+    for(BatchApexErrorEvent event : Trigger.new) {
+        newError.JobId__c = event.AsyncApexJobId;
+        newError.Error__c = event.Message;
+        newError.Records__c = event.JobScope;
+        newErrors.add(newError);    
+    }
+    insert newErrors;
+}
