@@ -1,6 +1,11 @@
-public class FlightCleanerBatch implements Database.Batchable<sObject>, Database.Stateful, Database.RaisesPlatformEvents {
-    private String query = 'SELECT Id, Name, (SELECT Id, CreatedDate, Status__c FROM Flights__r) FROM Tourist__c';
-    private Date controlDate = date.today() - 30;
+public with sharing class FlightCleanerBatch implements Database.Batchable<SObject>, Database.RaisesPlatformEvents, Database.Stateful {
+    private final Date controlDate = date.today() - Constants.FLIGHT_DELITION_PERIOD_DAYS;
+    private final String query = 
+        'SELECT Id, ' +
+        'Name, ' +
+        '(SELECT Id, CreatedDate, Status__c FROM Flights__r) ' +
+        'FROM Tourist__c ' +
+        'WHERE Id IN(SELECT Tourist__c FROM Flight__c WHERE CreatedDate < :controlDate OR Status__c = \'' + Constants.FLIGHT_STATUS_DECLINED + '\')';
     private Map<Tourist__c, Integer> numberDeletedFlightsByTourist = new Map<Tourist__c, Integer>();
     
     public Database.QueryLocator start(Database.BatchableContext bc) {
@@ -12,11 +17,12 @@ public class FlightCleanerBatch implements Database.Batchable<sObject>, Database
         
         for (Tourist__c tourist : tourists) {
             Integer countDeletedFlights = 0;
+            Integer d = 2/0;
             
             for (Flight__c flight : tourist.Flights__r) {
-                if ((flight.Status__c == 'Declined') || (flight.CreatedDate < controlDate)) { 
+                if ((flight.Status__c == Constants.FLIGHT_STATUS_DECLINED) || (flight.CreatedDate < controlDate)) { 
                     flightsToDelete.add(flight);
-                    countDeletedFlights = countDeletedFlights + 1;
+                    ++countDeletedFlights;
                 }
             }
             if (countDeletedFlights > 0) {
@@ -27,7 +33,7 @@ public class FlightCleanerBatch implements Database.Batchable<sObject>, Database
     }
     
     public void finish(Database.BatchableContext bc) {
-        List<String> adresses = EmailHelper.getCustomMetadataAdresses('settings FlightCleanerBatch');
+        Set<String> adresses = EmailHelper.getCustomMetadataAdresses(Constants.EMAIL_SETTING_NAME_FLIGHT_CLEANER);
         String subject = 'Batch Process Completed';
         String textBody = '';
         

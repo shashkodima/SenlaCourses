@@ -1,6 +1,6 @@
 trigger TouristTrigger on Tourist__c(after insert, after update) {
-    if (!TouristTriggerHandler.repeated) {
-        TouristTriggerHandler.repeated = true;
+    if (!TouristTriggerHandler.isRepeated) {
+        TouristTriggerHandler.isRepeated = true;
         
         switch on Trigger.operationType {
             when AFTER_INSERT {

@@ -1,5 +1,5 @@
 public class TouristTriggerHandler {
-    public static Boolean repeated = false;
+    public static Boolean isRepeated = false;
     
     public static void onAfterUpdate(Map<Id, Tourist__c> newTourists, Map<Id, Tourist__c> oldTourists) {
         Map<Id, Tourist__c> touristIsActiveChangedToFalse = new Map<Id, Tourist__c>();
@@ -15,7 +15,7 @@ public class TouristTriggerHandler {
         for (Tourist__c tour : touristsWithFlights) {
             if (!tour.Active__c) {
                 for (Flight__c flight : tour.Flights__r) {
-                    flight.Status__c = 'Declined';
+                    flight.Status__c = Constants.FLIGHT_STATUS_DECLINED;
                     flightsToUpdate.add(flight);
                 }
             }
@@ -24,12 +24,12 @@ public class TouristTriggerHandler {
     }
     
     public static void onAfterInsert(List<Tourist__c> newTourists) {
-        List<Id> touristsId = new List<Id>();
+        Set<Id> touristsId = new Set<Id>();
         
         for (Tourist__c tourist : newTourists) {
             Id touristId = tourist.Id;
             touristsId.add(touristId);
         }
-        TouristService.markDuplicates(touristsId);
+        TouristService.markDuplicatesAsync(touristsId);
     }
 }

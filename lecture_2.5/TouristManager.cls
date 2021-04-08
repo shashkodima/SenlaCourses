@@ -66,7 +66,7 @@ public class TouristManager {
         return touristsNoFly;
     }
     
-    public static List<Tourist__c> getDuplicate(List<String> names, List<String> mails, List<Id> newTouristsId) {
+    public static List<Tourist__c> getDuplicate(List<String> names, List<String> mails, Set<Id> newTouristsId) {
         if((names.isEmpty() && mails.isEmpty() && newTouristsId.isEmpty()) || (names == null && mails == null && newTouristsId == null)) {
             return new List<Tourist__c>();
         }
@@ -106,7 +106,7 @@ public class TouristManager {
         return tourWithFlihts;
     }
     
-    public static List<Tourist__c> getByIds (List<Id> touristsId) {
+    public static List<Tourist__c> getByIds (Set<Id> touristsId) {
         List<Tourist__c> newTourists = [
             SELECT Id,
             Name,

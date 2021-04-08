@@ -1,6 +1,7 @@
 public class TouristService {
+    
     @future
-    public static void markDuplicates(List<Id> newTouristsId) {
+    public static void markDuplicatesAsync(Set<Id> newTouristsId) {
         List<Tourist__c> newTourists = TouristManager.getByIds(newTouristsId);
         List<String> names = new List<String>();
         List<String> mails = new List<String>();
