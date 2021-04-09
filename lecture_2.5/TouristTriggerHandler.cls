@@ -23,13 +23,7 @@ public class TouristTriggerHandler {
         update flightsToUpdate;
     }
     
-    public static void onAfterInsert(List<Tourist__c> newTourists) {
-        Set<Id> touristsId = new Set<Id>();
-        
-        for (Tourist__c tourist : newTourists) {
-            Id touristId = tourist.Id;
-            touristsId.add(touristId);
-        }
-        TouristService.markDuplicatesAsync(touristsId);
+    public static void onAfterInsert(Map<Id, Tourist__c> newTourists) {
+        TouristService.markDuplicatesAsync(newTourists.keyset());
     }
 }

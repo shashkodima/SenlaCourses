@@ -4,7 +4,7 @@ trigger TouristTrigger on Tourist__c(after insert, after update) {
         
         switch on Trigger.operationType {
             when AFTER_INSERT {
-                TouristTriggerHandler.onAfterInsert(Trigger.new);
+                TouristTriggerHandler.onAfterInsert(Trigger.newMap);
             }
             when AFTER_UPDATE {
                 TouristTriggerHandler.onAfterUpdate(Trigger.newMap, Trigger.oldMap);
