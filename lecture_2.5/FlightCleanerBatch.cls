@@ -32,7 +32,7 @@ public with sharing class FlightCleanerBatch implements Database.Batchable<SObje
     }
     
     public void finish(Database.BatchableContext bc) {
-        Set<String> adresses = EmailHelper.getCustomMetadataAdresses(Constants.EMAIL_SETTING_NAME_FLIGHT_CLEANER);
+        Set<String> addresses = EmailHelper.getCustomMetadataAddresses(Constants.EMAIL_SETTING_NAME_FLIGHT_CLEANER);
         String subject = Constants.EMAIL_SUBJECT_FLIGHT_CLEANER;
         String textBody = '';
         
@@ -40,6 +40,6 @@ public with sharing class FlightCleanerBatch implements Database.Batchable<SObje
             String aditionalText = key + ' deleted records = ' + numberDeletedFlightsByTourist.get(key) + ' ';
             textBody = textBody + aditionalText;
         }
-        EmailHelper.sendEmail(adresses, subject, textBody);             
+        EmailHelper.sendEmail(addresses, subject, textBody);             
     }
 }
