@@ -66,8 +66,8 @@ public class TouristManager {
         return touristsNoFly;
     }
     
-    public static List<Tourist__c> getDuplicate(List<String> names, List<String> mails, Set<Id> newTouristsId) {
-        if((names.isEmpty() && mails.isEmpty() && newTouristsId.isEmpty()) || (names == null && mails == null && newTouristsId == null)) {
+    public static List<Tourist__c> getDuplicate(List<String> names, List<String> mails, Set<Id> newTouristIds) {
+        if((names.isEmpty() && mails.isEmpty() && newTouristIds.isEmpty()) || (names == null && mails == null && newTouristIds == null)) {
             return new List<Tourist__c>();
         }
         List < Tourist__c > duplicateTourists = [
@@ -77,7 +77,7 @@ public class TouristManager {
             FROM Tourist__c
             WHERE Tourist_EMail__c IN: mails
             AND Name IN: names
-            AND Id NOT IN :newTouristsId
+            AND Id NOT IN :newTouristIds
         ];
         return duplicateTourists;
     }
@@ -106,13 +106,13 @@ public class TouristManager {
         return tourWithFlihts;
     }
     
-    public static List<Tourist__c> getByIds (Set<Id> touristsId) {
+    public static List<Tourist__c> getByIds (Set<Id> touristIds) {
         List<Tourist__c> newTourists = [
             SELECT Id,
             Name,
             Tourist_EMail__c
             FROM Tourist__c
-            WHERE Id IN :touristsId
+            WHERE Id IN :touristIds
         ];
         return newTourists;
     }

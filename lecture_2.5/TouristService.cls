@@ -1,8 +1,8 @@
 public class TouristService {
     
     @future
-    public static void markDuplicatesAsync(Set<Id> newTouristsId) {
-        List<Tourist__c> newTourists = TouristManager.getByIds(newTouristsId);
+    public static void markDuplicatesAsync(Set<Id> newTouristIds) {
+        List<Tourist__c> newTourists = TouristManager.getByIds(newTouristIds);
         List<String> names = new List<String>();
         List<String> mails = new List<String>();
         
@@ -10,7 +10,7 @@ public class TouristService {
             names.add(tourist.Name);
             mails.add(tourist.Tourist_EMail__c);
         }
-        List<Tourist__c> duplicateTourists = TouristManager.getDuplicate(names, mails, newTouristsId);
+        List<Tourist__c> duplicateTourists = TouristManager.getDuplicate(names, mails, newTouristIds);
         
         for (Tourist__c newTourist : newTourists) {
             for (Tourist__c duplicateTourist : duplicateTourists) {
