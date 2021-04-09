@@ -1,7 +1,7 @@
 FlightCleanerSchedule everyHalfHour = new FlightCleanerSchedule();
 String cron1 = '0 0 * * * ?';
-String jobID = System.schedule('Every half hour', cron1, everyHalfHour);
+String jobID = System.schedule('Flight Cleaner Process', cron1, everyHalfHour);
 
 FlightCleanerSchedule everyHalfHour2 = new FlightCleanerSchedule();
 String cron2 = '0 30 * * * ?';
-String jobID2 = System.schedule('Every half hour2', cron2, everyHalfHour2);
+String jobID2 = System.schedule('Additional Flight Cleaner Process', cron2, everyHalfHour2);
