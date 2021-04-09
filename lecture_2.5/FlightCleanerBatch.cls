@@ -1,11 +1,11 @@
 public with sharing class FlightCleanerBatch implements Database.Batchable<SObject>, Database.RaisesPlatformEvents, Database.Stateful {
-    private final Date controlDate = date.today() - Constants.FLIGHT_DELITION_PERIOD_DAYS;
+    private final Date CONTROL_DATE = Date.today() - Constants.FLIGHT_DELETION_PERIOD_DAYS;
     private final String query = 
         'SELECT Id, ' +
         'Name, ' +
         '(SELECT Id, CreatedDate, Status__c FROM Flights__r) ' +
         'FROM Tourist__c ' +
-        'WHERE Id IN(SELECT Tourist__c FROM Flight__c WHERE CreatedDate < :controlDate OR Status__c = \'' + Constants.FLIGHT_STATUS_DECLINED + '\')';
+        'WHERE Id IN(SELECT Tourist__c FROM Flight__c WHERE CreatedDate < :CONTROL_DATE OR Status__c = \'' + Constants.FLIGHT_STATUS_DECLINED + '\')';
     private Map<Tourist__c, Integer> numberDeletedFlightsByTourist = new Map<Tourist__c, Integer>();
     
     public Database.QueryLocator start(Database.BatchableContext bc) {
@@ -17,10 +17,9 @@ public with sharing class FlightCleanerBatch implements Database.Batchable<SObje
         
         for (Tourist__c tourist : tourists) {
             Integer countDeletedFlights = 0;
-            Integer d = 2/0;
             
             for (Flight__c flight : tourist.Flights__r) {
-                if ((flight.Status__c == Constants.FLIGHT_STATUS_DECLINED) || (flight.CreatedDate < controlDate)) { 
+                if ((flight.Status__c == Constants.FLIGHT_STATUS_DECLINED) || (flight.CreatedDate < CONTROL_DATE)) { 
                     flightsToDelete.add(flight);
                     ++countDeletedFlights;
                 }
