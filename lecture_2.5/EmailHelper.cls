@@ -11,7 +11,7 @@ public class EmailHelper {
     
     public static Set<String> getCustomMetadataAddresses(String settingsName) {
         Email_Setting__mdt [] mailSettings = [
-            SELECT Email_adress__c 
+            SELECT Email_Address__c
             FROM Email_Setting__mdt 
             WHERE DeveloperName LIKE : settingsName
         ];
