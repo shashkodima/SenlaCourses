@@ -1,0 +1,3 @@
+WeatherForecastUpdaterSchedule everyDay = new WeatherForecastUpdaterSchedule();
+String cron = '0 0 1 * * ?';
+String jobID = System.schedule('Weather Forecast Update Process', cron, everyDay);

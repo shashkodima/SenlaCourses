@@ -70,7 +70,7 @@ public class TouristManager {
         if((names.isEmpty() && mails.isEmpty() && newTouristIds.isEmpty()) || (names == null && mails == null && newTouristIds == null)) {
             return new List<Tourist__c>();
         }
-        List < Tourist__c > duplicateTourists = [
+        List<Tourist__c> duplicateTourists = [
             SELECT Id, 
             Name, 
             Tourist_EMail__c
@@ -78,6 +78,21 @@ public class TouristManager {
             WHERE Tourist_EMail__c IN: mails
             AND Name IN: names
             AND Id NOT IN :newTouristIds
+        ];
+        return duplicateTourists;
+    }
+    
+    public static List<Tourist__c> getDuplicate(String name, String email) {
+        if(String.isBlank(name) && String.isBlank(email)) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> duplicateTourists = [
+            SELECT Id, 
+            Name, 
+            Tourist_EMail__c
+            FROM Tourist__c
+            WHERE Tourist_EMail__c = :email
+            AND Name = :name
         ];
         return duplicateTourists;
     }
