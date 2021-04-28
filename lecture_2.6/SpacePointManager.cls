@@ -1,8 +1,8 @@
 public class SpacePointManager {
     
-    public static List<Space_Point__c> getAllSpacePoint() {
+    public static List<Space_Point__c> getAllSpacePoints() {
         List<Space_Point__c> allSpacePoints = [
-            Select Id,
+            SELECT Id,
             Latitude__c,
             Longitude__c
             FROM Space_Point__c
