@@ -133,6 +133,9 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getTourists (String fuzzyName, Integer age) {
+        if(String.isBlank(fuzzyName) && age == null) {
+            return new List<Tourist__c>();
+        }
         List<List<sObject>> result = [
             FIND :fuzzyName 
             IN NAME FIELDS 
@@ -143,6 +146,9 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getTourists (String fuzzyName) {
+        if(String.isBlank(fuzzyName)) {
+            return new List<Tourist__c>();
+        }
         List<List<sObject>> result = [
             FIND :fuzzyName 
             IN NAME FIELDS 
