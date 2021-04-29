@@ -11,7 +11,7 @@ public class Constants {
     public static final String WEATHERBIT_JSON_RESPONSE_BODY_DATA_KEY = 'data';
     public static final String WEATHERBIT_JSON_RESPONSE_BODY_FORECAST_DATE_KEY = 'valid_date';
     public static final String WEATHERBIT_JSON_RESPONSE_BODY_AVERAGE_TEMPERATURE_KEY = 'temp';
-    public static final String WEATHERBIT_REQUEST_METHOD_GET = 'GET';
+    public static final String REQUEST_METHOD_GET = 'GET';
     public static final Integer STATUS_CODE_200 = 200;
     public static final Integer STATUS_CODE_404 = 404;
     public static final Integer STATUS_CODE_409 = 409;
