@@ -8,7 +8,7 @@ public class WeatherForecastService {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint('callout:weatherbit_daily_forecast/' + String.format('?lat={0}&lon={1}&key={2}', parameters));
-        request.setMethod(Constants.WEATHERBIT_REQUEST_METHOD_GET);
+        request.setMethod(Constants.REQUEST_METHOD_GET);
         HttpResponse response = http.send(request);
         
         if (response.getStatusCode() == Constants.STATUS_CODE_200) {
