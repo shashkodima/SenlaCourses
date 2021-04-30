@@ -4,17 +4,15 @@ public class ParameterValidation {
         if (String.isBlank(fuzzyName)) {    
             String message = Constants.RESPONSE_BODY_NAME_EMPTY;
             Integer statusCode = Constants.STATUS_CODE_404;
-            throw new RestRequestValidationException(message, statusCode);
+            throw new RestRequestValidationException(statusCode, message);
         } 
     }
     
     public static void checkAgeIsNotNumeric(String age) {
-        if (String.isBlank(age)) {
-            return;
-        } else if (!age.isNumeric()) {
+        if (!(String.isBlank(age) || age.isNumeric())) {
             String message = Constants.RESPONSE_BODY_AGE_NOT_NUMBER;
             Integer statusCode = Constants.STATUS_CODE_404;
-            throw new RestRequestValidationException(message, statusCode);
+            throw new RestRequestValidationException(statusCode, message);
         } 
     }
     
@@ -23,7 +21,7 @@ public class ParameterValidation {
         if (!duplicateTourists.isEmpty()) {
             String message;
             Integer statusCode = Constants.STATUS_CODE_409;
-            throw new RestRequestValidationException(message, statusCode);
+            throw new RestRequestValidationException(statusCode, message);
         }
     }
 }
