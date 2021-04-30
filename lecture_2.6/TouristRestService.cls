@@ -15,14 +15,12 @@ global class TouristRestService {
             
             if (String.isBlank(parameterAge)) {
                 result = TouristManager.getTourists(fuzzyName);
-                response.statusCode = Constants.STATUS_CODE_200;
-                response.responseBody = Blob.valueOf(JSON.serializePretty(result));
             } else {
                 Integer age = Integer.valueof(parameterAge);
                 result = TouristManager.getTourists(fuzzyName, age);
-                response.statusCode = Constants.STATUS_CODE_200;
-                response.responseBody = Blob.valueOf(JSON.serializePretty(result));
-            }       
+            }
+            response.statusCode = Constants.STATUS_CODE_200;
+            response.responseBody = Blob.valueOf(JSON.serializePretty(result));
         } catch(RestRequestValidationException ex) {
             response.statusCode = ex.getStatusCode();
             response.responseBody = Blob.valueOf(ex.getMessage());
