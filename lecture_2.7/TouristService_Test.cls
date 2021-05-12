@@ -1,20 +1,22 @@
 @IsTest
-public class TouristService_Test {
+private class TouristService_Test {
     
     @testSetup
-    static void setup() {
+    private static void setup() {
         TestDataFactory.createTouristsWithFlightsTrips();
     }
     
     @IsTest
-    static void testMarkDuplicatesAsync() {
+    private static void testMarkDuplicatesAsync() {
         Tourist__c newTourist = new Tourist__c(Name = 'Test1', Tourist_EMail__c = 'Test1@outlook.com');
         insert newTourist;
         Set<Id> newTouristsIds = new Set<Id>();
         newTouristsIds.add(newTourist.Id);
+        
         Test.startTest();
         TouristService.markDuplicatesAsync(newTouristsIds);
         Test.stopTest();
+        
         List<Tourist__c> markedDuplicateTourist = [
             SELECT Id,
             IsDuplicate__c
@@ -25,14 +27,16 @@ public class TouristService_Test {
     }
     
     @IsTest
-    static void testNotMarkDuplicatesAsync() {
+    private static void testNotMarkDuplicatesAsync() {
         Tourist__c newTourist = new Tourist__c(Name = 'Test1', Tourist_EMail__c = 'noRepeat@mail.ru');
         insert newTourist;
         Set<Id> newTouristsIds = new Set<Id>();
         newTouristsIds.add(newTourist.Id);
+        
         Test.startTest();
         TouristService.markDuplicatesAsync(newTouristsIds);
         Test.stopTest();
+        
         List<Tourist__c> markedDuplicateTourist = [
             SELECT Id,
             IsDuplicate__c
@@ -43,7 +47,7 @@ public class TouristService_Test {
     }
     
     @IsTest
-    static void testFindIsActiveChangedToFalse() {
+    private static void testFindIsActiveChangedToFalse() {
         Map<Id, Tourist__c> oldTourists = new Map<Id, Tourist__c>([
             SELECT Id,
             Active__c
@@ -62,7 +66,7 @@ public class TouristService_Test {
     }
     
     @IsTest
-    static void testFindIsActiveChangedToFalseNotAll() {
+    private static void testFindIsActiveChangedToFalseNotAll() {
         Map<Id, Tourist__c> oldTourists = new Map<Id, Tourist__c>([
             SELECT Id,
             Active__c

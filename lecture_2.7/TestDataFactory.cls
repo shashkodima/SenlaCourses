@@ -43,6 +43,15 @@ public class TestDataFactory {
         insert testForecasts;
     }
     
+    public static void createSpacePoints() {
+        List<Space_Point__c> testSpacePoints = new List<Space_Point__c> {
+            new Space_Point__c(Name = 'Test1', Latitude__c = 1, Longitude__c = 1),
+            new Space_Point__c(Name = 'Test2', Latitude__c = 2, Longitude__c = 2),
+            new Space_Point__c(Name = 'Test3', Latitude__c = 3, Longitude__c = 3)    
+        };
+        insert testSpacePoints;
+    }
+    
     public static Flight__c createDataForFlightTriggerTest (Date touristBirthdate, Double minAgeForTrip, Date tripDate) {
         Tourist__c newTourist = new Tourist__c(Name = 'Test1', Birthdate__c = touristBirthdate);
         insert newTourist;

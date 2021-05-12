@@ -1,50 +1,50 @@
 @IsTest
-public class TouristManager_Test {
+private class TouristManager_Test {
     
     @testSetup
-    static void setup() {
+    private static void setup() {
         TestDataFactory.createTouristsWithFlightsTrips();
     }
     
     @IsTest
-    static void testGetByName() {
+    private static void testGetByName() {
         List<Tourist__c> foundTourists = TouristManager.getByName('Test1');
         System.assertEquals(1, foundTourists.size());
     }
     
     @IsTest
-    static void testGetByBlankName() {
+    private static void testGetByBlankName() {
         List<Tourist__c> foundTourists = TouristManager.getByName('');
         System.assertEquals(0, foundTourists.size());
     }
     
     @IsTest
-    static void testGetByAge() {
+    private static void testGetByAge() {
         List<Tourist__c> foundTourists = TouristManager.getByAge(new Set<Integer>{1, 5});
         System.assertEquals(2, foundTourists.size());
     }
     
     @IsTest
-    static void testGetByEmptyAge() {
+    private static void testGetByEmptyAge() {
         List<Tourist__c> foundTouristsNull = TouristManager.getByAge(new Set<Integer>());
         System.assertEquals(0, foundTouristsNull.size());
     }
     
     @IsTest
-    static void testGetByStartYear() {
+    private static void testGetByStartYear() {
         List<Tourist__c> foundTourists = TouristManager.getByStartYear(2021);
         System.assertEquals(2, foundTourists.size());
     }
     
     @IsTest
-    static void testGetByNullStartYear() {
+    private static void testGetByNullStartYear() {
         Integer yearNull;
         List<Tourist__c> foundTouristsNull = TouristManager.getByStartYear(yearNull);
         System.assertEquals(0, foundTouristsNull.size());
     }
     
     @IsTest
-    static void testGetTouristTrip() {
+    private static void testGetTouristTrip() {
         List<Tourist__c> TouristsWithTrips = TouristManager.getTouristTrip();
         List<Trip__c> trips = new List<Trip__c>();
         List<String> tripsNames = new List<String>();
@@ -59,13 +59,13 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetNoFlight() {
+    private static void testGetNoFlight() {
         List<Tourist__c> TouristsNoFlight = TouristManager.getNoFlight();
         System.assertEquals(1, TouristsNoFlight.size());
     }
     
     @IsTest
-    static void testGetDuplicateNewTourists() {
+    private static void testGetDuplicateNewTourists() {
         List<Tourist__c> newTourists = new List<Tourist__c> {
             new Tourist__c(Name = 'Test1', Tourist_EMail__c = 'Test1@outlook.com', Birthdate__c = Date.today() - 370),
             new Tourist__c(Name = 'NotDuplicate', Tourist_EMail__c = 'Test1@outlook.com', Birthdate__c = Date.today() - 370)
@@ -85,7 +85,7 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetDuplicateNewTouristsNullParam() {
+    private static void testGetDuplicateNewTouristsNullParam() {
         List<String> names = new List<String>();
         List<String> mails = new List<String>();
         Set<Id> newTouristIds = new Set<Id>();
@@ -94,34 +94,34 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetDuplicateNewTourist() {
+    private static void testGetDuplicateNewTourist() {
         Tourist__c duplicateTourist = new Tourist__c(Name = 'Test1', Tourist_EMail__c = 'Test1@outlook.com', Birthdate__c = Date.today() - 370);        
         List<Tourist__c> duplicateTourists = TouristManager.getDuplicate(duplicateTourist.Name, duplicateTourist.Tourist_EMail__c);
         System.assertEquals(1, duplicateTourists.size());
     }
     
     @IsTest
-    static void testGetDuplicateNewTouristNullParam() {
+    private static void testGetDuplicateNewTouristNullParam() {
         List<Tourist__c> duplicateTourists = TouristManager.getDuplicate('', '');
         System.assertEquals(0, duplicateTourists.size()); 
     }
     
     @IsTest
-    static void testGetDuplicateNewTouristNoMatches() {
+    private static void testGetDuplicateNewTouristNoMatches() {
         Tourist__c notDuplicateTourist = new Tourist__c(Name = 'NotDuplicate', Tourist_EMail__c = 'Test1@outlook.com', Birthdate__c = Date.today() - 370);        
         List<Tourist__c> duplicateTouristsEmpty = TouristManager.getDuplicate(notDuplicateTourist.Name, notDuplicateTourist.Tourist_EMail__c);
         System.assertEquals(0, duplicateTouristsEmpty.size());
     }
     
     @IsTest
-    static void testGetByFreeDateMinAge() {
+    private static void testGetByFreeDateMinAge() {
         Date testDate = Date.newInstance(2021, 11, 01);
         List<Tourist__c> freeTourist = TouristManager.getByFreeDateMinAge(testDate, 0);
         System.assertEquals(2, freeTourist.size());
     }
     
     @IsTest
-    static void testGetTouristsWithFlights() {
+    private static void testGetTouristsWithFlights() {
         Map<Id, Tourist__c> testMap = new Map<Id, Tourist__c>([
             SELECT Id
             FROM Tourist__c
@@ -138,7 +138,7 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetByIds() {
+    private static void testGetByIds() {
         List<Tourist__c> testTourists = [
             SELECT Id,
             Name,
@@ -152,7 +152,7 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetTouristsByFuzzyNameAge() {
+    private static void testGetTouristsByFuzzyNameAge() {
         List<Tourist__c> testTourists = [
             SELECT Id,
             Name,
@@ -167,7 +167,7 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetTouristsByFuzzyNameAgeNullParam() {
+    private static void testGetTouristsByFuzzyNameAgeNullParam() {
         List<Tourist__c> testTourists = [
             SELECT Id,
             Name,
@@ -184,7 +184,7 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetTouristsByFuzzyName() {
+    private static void testGetTouristsByFuzzyName() {
         List<Tourist__c> testTourists = [
             SELECT Id,
             Name,
@@ -199,7 +199,7 @@ public class TouristManager_Test {
     }
     
     @IsTest
-    static void testGetTouristsByFuzzyNameNullParam() {
+    private static void testGetTouristsByFuzzyNameNullParam() {
         List<Tourist__c> testTourists = [
             SELECT Id,
             Name,

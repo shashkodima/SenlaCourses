@@ -1,13 +1,13 @@
 @IsTest
-public class FlightManager_Test {
+private class FlightManager_Test {
     
     @testSetup
-    static void setup() {
+    private static void setup() {
         TestDataFactory.createTouristsWithFlightsTrips();
     }
     
     @IsTest 
-    static void testGetFlightsWithRelaitedFields() {
+     private static void testGetFlightsWithRelaitedFields() {
         List <Double> minAgesTrips = new List<Double>();
         List <Double> touristsAges = new List<Double>();
         Map<Id, Flight__c> flights = new Map<Id, Flight__c>([

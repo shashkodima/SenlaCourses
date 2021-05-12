@@ -1,13 +1,13 @@
 @IsTest
-public class TouristTrigger_Test {
+private class TouristTrigger_Test {
     
     @testSetup
-    static void setup() {
+    private static void setup() {
         TestDataFactory.createTouristsWithFlightsTrips();
     }
     
     @IsTest
-    static void testOnAfterUpdateActiveChangedToFalse () {
+    private static void testOnAfterUpdateActiveChangedToFalse () {
         List<Tourist__c> testTourists = [
             SELECT Id,
             Active__c
@@ -23,15 +23,15 @@ public class TouristTrigger_Test {
         ];
         
         for (Flight__c flight : testTouristFlights) {
-            if (flight.Status__c != 'Declined') {
+            if (flight.Status__c != Constants.FLIGHT_STATUS_DECLINED) {
                 allFlightsDeclined = false;
             }
         }
-        System.assert(allFlightsDeclined);
+        System.assertEquals(true, allFlightsDeclined);
     }
     
     @IsTest
-    static void testOnAfterUpdateActiveNotChangedToFalse () {
+    private static void testOnAfterUpdateActiveNotChangedToFalse () {
         List<Tourist__c> testTourists = [
             SELECT Id,
             Active__c
@@ -47,10 +47,10 @@ public class TouristTrigger_Test {
         ];
         
         for (Flight__c flight : testTouristFlights) {
-            if (flight.Status__c == 'Declined') {
+            if (flight.Status__c == Constants.FLIGHT_STATUS_DECLINED) {
                 allFlightsNotDeclined = false;
             }
         }
-        System.assert(allFlightsNotDeclined);
+        System.assertEquals(true, allFlightsNotDeclined);
     }
 }
