@@ -1,6 +1,16 @@
 @IsTest
 private class TouristManager_Test {
     
+    private static List<tourist__c> getTestTourists() {
+        List<Tourist__c> testTourists = [
+            SELECT Id,
+            Name,
+            Tourist_EMail__c
+            FROM Tourist__c
+        ];
+        return testTourists;
+    }
+    
     @testSetup
     private static void setup() {
         TestDataFactory.createTouristsWithFlightsTrips();
@@ -139,12 +149,7 @@ private class TouristManager_Test {
     
     @IsTest
     private static void testGetByIds() {
-        List<Tourist__c> testTourists = [
-            SELECT Id,
-            Name,
-            Tourist_EMail__c
-            FROM Tourist__c
-        ];
+        List<Tourist__c> testTourists = getTestTourists();
         Set<Id> testId = new Set<Id>();
         testId.add(testTourists[0].Id);
         List<Tourist__c> foundTourist = TouristManager.getByIds(testId);
@@ -153,64 +158,56 @@ private class TouristManager_Test {
     
     @IsTest
     private static void testGetTouristsByFuzzyNameAge() {
-        List<Tourist__c> testTourists = [
-            SELECT Id,
-            Name,
-            Tourist_EMail__c
-            FROM Tourist__c
-        ];
-        Tourist__c testTourist = testTourists[0];
-        Id [] fixedSearchResults= new Id[1];
-        fixedSearchResults[0] = testTourist.Id;
+        List<Tourist__c> testTourists = getTestTourists();
+        List<Id> fixedSearchResults = new List<Id>();
+        
+        for (Tourist__c tourist : testTourists){
+            fixedSearchResults.add(tourist.Id);
+        }
         Test.setFixedSearchResults(fixedSearchResults);
-        TouristManager.getTourists('Test', 1);
+        List<Tourist__c> foundTourists = TouristManager.getTourists('Test', 1);
+        System.assertEquals(2, foundTourists.size());
     }
     
     @IsTest
     private static void testGetTouristsByFuzzyNameAgeNullParam() {
-        List<Tourist__c> testTourists = [
-            SELECT Id,
-            Name,
-            Tourist_EMail__c
-            FROM Tourist__c
-        ];
-        Tourist__c testTourist = testTourists[0];
-        Id [] fixedSearchResults= new Id[1];
-        fixedSearchResults[0] = testTourist.Id;
+        List<Tourist__c> testTourists = getTestTourists();
+        List<Id> fixedSearchResults = new List<Id>();
+        
+        for (Tourist__c tourist : testTourists){
+            fixedSearchResults.add(tourist.Id);
+        }
         Test.setFixedSearchResults(fixedSearchResults);
         String fuzzyName;
         Integer age;
-        TouristManager.getTourists(fuzzyName, age);
+        List<Tourist__c> foundTourists = TouristManager.getTourists(fuzzyName, age);
+        System.assertEquals(true, foundTourists.isEmpty());
     }
     
     @IsTest
     private static void testGetTouristsByFuzzyName() {
-        List<Tourist__c> testTourists = [
-            SELECT Id,
-            Name,
-            Tourist_EMail__c
-            FROM Tourist__c
-        ];
-        Tourist__c testTourist = testTourists[0];
-        Id [] fixedSearchResults= new Id[1];
-        fixedSearchResults[0] = testTourist.Id;
+        List<Tourist__c> testTourists = getTestTourists();
+        List<Id> fixedSearchResults = new List<Id>();
+        
+        for (Tourist__c tourist : testTourists){
+            fixedSearchResults.add(tourist.Id);
+        }
         Test.setFixedSearchResults(fixedSearchResults);
-        TouristManager.getTourists('Test');
+        List<Tourist__c> foundTourists = TouristManager.getTourists('Test');
+        System.assertEquals(4, foundTourists.size());
     }
     
     @IsTest
     private static void testGetTouristsByFuzzyNameNullParam() {
-        List<Tourist__c> testTourists = [
-            SELECT Id,
-            Name,
-            Tourist_EMail__c
-            FROM Tourist__c
-        ];
-        Tourist__c testTourist = testTourists[0];
-        Id [] fixedSearchResults= new Id[1];
-        fixedSearchResults[0] = testTourist.Id;
+        List<Tourist__c> testTourists = getTestTourists();
+        List<Id> fixedSearchResults = new List<Id>();
+        
+        for (Tourist__c tourist : testTourists){
+            fixedSearchResults.add(tourist.Id);
+        }
         Test.setFixedSearchResults(fixedSearchResults);
         String fuzzyName;
-        TouristManager.getTourists(fuzzyName);
+        List<Tourist__c> foundTourists = TouristManager.getTourists(fuzzyName);
+        System.assertEquals(true, foundTourists.isEmpty());
     }
 }
