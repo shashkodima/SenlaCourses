@@ -8,7 +8,6 @@ private class FlightCleanerBatch_Test {
     
     @IsTest
     private static void testFlightCleanerBatch() {
-        
         Test.startTest();
         FlightCleanerBatch newBatch = new FlightCleanerBatch();
         Id batchId = Database.executeBatch(newBatch);
