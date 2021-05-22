@@ -1,6 +1,26 @@
 @IsTest
 private class TouristRestService_Test {
     
+    private static List<tourist__c> getTestTourists() {
+        List<Tourist__c> testTourists = [
+            SELECT Id,
+            Name,
+            Tourist_EMail__c
+            FROM Tourist__c
+        ];
+        return testTourists;
+    }
+    
+    private static List<Tourist__c> getCreatedTouristByName(String name) {
+        List<Tourist__c> createdTourist = [
+            SELECT Id,
+            Name
+            FROM Tourist__c
+            WHERE Name = :name
+        ];
+        return createdTourist;
+    }
+    
     @testSetup
     private static void setup() {
         TestDataFactory.createTouristsWithFlightsTrips();
@@ -8,29 +28,35 @@ private class TouristRestService_Test {
     
     @IsTest
     private static void testGetTourist() {
-        
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
         RestContext.request.requestUri = '/services/apexrest/Tourist';
         RestContext.request.httpMethod = Constants.REQUEST_METHOD_GET;
         RestContext.request.addParameter('fuzzyname', 'Test');
         RestContext.request.addParameter('age', '1');
+        List<Tourist__c> testTourists = getTestTourists();
+        List<Id> fixedSearchResults = new List<Id>();
+        
+        for (Tourist__c tourist : testTourists){
+            fixedSearchResults.add(tourist.Id);
+        }
+        Test.setFixedSearchResults(fixedSearchResults);
         
         Test.startTest();
         TouristRestService.getTourist();
         Test.stopTest();
         
-        System.assertEquals(true, RestContext.response.responseBody.size() > 0);
+        String body = RestContext.response.responseBody.toString();
+        System.assertEquals(false, String.isEmpty(body));
         System.assertEquals(Constants.STATUS_CODE_200, RestContext.response.statusCode);
     }
     
     @IsTest
-    private static void testGetTourist_FuzzyNameIsBlank() {
-        
+    private static void testGetTourist_FuzzyNameIsBlank() {       
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
         RestContext.request.requestUri = '/services/apexrest/Tourist';
-        RestContext.request.httpMethod = 'GET';
+        RestContext.request.httpMethod = Constants.REQUEST_METHOD_GET;
         RestContext.request.addParameter('fuzzyname', '');
         RestContext.request.addParameter('age', '1');
         
@@ -45,12 +71,11 @@ private class TouristRestService_Test {
     }
     
     @IsTest
-    private static void testGetTourist_AgeIsNotNumeric() {
-        
+    private static void testGetTourist_AgeIsNotNumeric() {        
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
         RestContext.request.requestUri = '/services/apexrest/Tourist';
-        RestContext.request.httpMethod = 'GET';
+        RestContext.request.httpMethod = Constants.REQUEST_METHOD_GET;
         RestContext.request.addParameter('fuzzyname', 'Test');
         RestContext.request.addParameter('age', 'NotNumeric');
         
@@ -65,20 +90,27 @@ private class TouristRestService_Test {
     }
     
     @IsTest
-    private static void testGetTourist_ParamAgeEmpty() {
-        
+    private static void testGetTourist_ParamAgeEmpty() {       
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
         RestContext.request.requestUri = '/services/apexrest/Tourist';
-        RestContext.request.httpMethod = 'GET';
+        RestContext.request.httpMethod = Constants.REQUEST_METHOD_GET;
         RestContext.request.addParameter('fuzzyname', 'Test');
         RestContext.request.addParameter('age', '');
+        List<Tourist__c> testTourists = getTestTourists();
+        List<Id> fixedSearchResults = new List<Id>();
+        
+        for (Tourist__c tourist : testTourists){
+            fixedSearchResults.add(tourist.Id);
+        }
+        Test.setFixedSearchResults(fixedSearchResults);
         
         Test.startTest();
         TouristRestService.getTourist();
         Test.stopTest();
         
-        System.assertEquals(true, RestContext.response.responseBody.size() > 0);
+        String body = RestContext.response.responseBody.toString();
+        System.assertEquals(false, String.isEmpty(body));
         System.assertEquals(Constants.STATUS_CODE_200, RestContext.response.statusCode);
     }
     
@@ -96,13 +128,7 @@ private class TouristRestService_Test {
         TouristRestService.createTourist(name, birthdate, email);
         Test.stopTest();
         
-        List<Tourist__c> createdTourist = [
-            SELECT Id,
-            Name
-            FROM Tourist__c
-            WHERE Name = 'name'
-        ];
-        
+        List<Tourist__c> createdTourist = getCreatedTouristByName('name');
         System.assertEquals(1, createdTourist.size());
         System.assertEquals(Constants.STATUS_CODE_200, RestContext.response.statusCode);
     }
@@ -121,13 +147,7 @@ private class TouristRestService_Test {
         TouristRestService.createTourist(name, birthdate, email);
         Test.stopTest();
         
-        List<Tourist__c> createdTourist = [
-            SELECT Id,
-            Name
-            FROM Tourist__c
-            WHERE Name = 'Test1'
-        ];
-        
+        List<Tourist__c> createdTourist = getCreatedTouristByName('Test1');
         System.assertEquals(1, createdTourist.size());
         System.assertEquals(Constants.STATUS_CODE_409, RestContext.response.statusCode);
     }
