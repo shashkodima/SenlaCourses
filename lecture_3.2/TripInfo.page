@@ -1,0 +1,50 @@
+<apex:page standardController="Trip__c" extensions="TripInfoController" lightningStyleSheets="true">
+    <apex:pageBlock title="Trip information">
+        
+        <apex:pageBlockSection title="Trip detail" columns="1">
+            <apex:outputField value="{!Trip__c.Name}"/>
+            <apex:outputField value="{!Trip__c.Start_Date__c}"/>
+            <apex:outputField value="{!Trip__c.Minimum_Age__c}"/>
+            <apex:outputField value="{!Trip__c.OwnerId}"/>
+            <apex:outputField value="{!Trip__c.LastModifiedById}"/>
+        </apex:pageBlockSection> 
+        
+        <apex:form > 
+            <div align="center" draggable="false" >
+                <apex:commandButton action="{!edit}" value="Edit Trip"/>
+            </div>
+        </apex:form> 
+        
+        <apex:pageBlockSection title="Related list Flights">
+            <apex:relatedList list="Flights__r"/>
+        </apex:pageBlockSection> 
+        
+        <apex:pageBlockSection title="Registered tourists">
+            <apex:pageBlockTable value="{!Trip__c.Flights__r}" var="flight">
+                <apex:column headerValue="TOURIST NAME">
+                    <apex:outputLink value="/{!flight.Tourist__r.Id}">
+                        <apex:outputText value="{!flight.Tourist__r.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column value="{!flight.Tourist__r.Age__c}"/>
+                <apex:column value="{!flight.Tourist__r.Birthdate__c}"/>
+                <apex:column value="{!flight.Tourist__r.Tourist_EMail__c}"/>
+                <apex:column value="{!flight.Tourist__r.OwnerId}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Available tourists information">
+            <apex:pageBlockTable value="{!notRegistredTourists}" var="tourist">
+                <apex:column headerValue="TOURIST NAME">
+                    <apex:outputLink value="/{!tourist.Id}">
+                        <apex:outputText value="{!tourist.Name}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column value="{!tourist.Age__c}"/>
+                <apex:column value="{!tourist.Upcoming_Flights_Count__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+</apex:page>
+                                        
